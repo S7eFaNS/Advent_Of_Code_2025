@@ -1,0 +1,2 @@
+# Advent_Of_Code_2025
+Advent Of Code 2025 solutions
