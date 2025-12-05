@@ -51,12 +51,23 @@ func main() {
 
 		old = startNumber
 
+		matches = 0
+
 		if direction[0] == 'L' {
 
-			matches = (value + (100 - old)) / 100
+			if old == 0 {
+				matches = value / 100
+			} else if value > old && value != old {
+				matches = 1 + (value-old)/100
+			}
+
 			countOfZeros += matches
 
-			startNumber = (startNumber - value + 100) % 100
+			startNumber = (old - value) % 100
+
+			if startNumber < 0 {
+				startNumber += 100
+			}
 
 			if matches == 0 && startNumber == 0 {
 				countOfZeros++
