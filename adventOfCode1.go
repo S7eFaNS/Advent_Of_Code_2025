@@ -18,6 +18,10 @@ func main() {
 
 	countOfZeros := 0
 
+	old := 0
+
+	matches := 0
+
 	scanner := bufio.NewScanner(os.Stdin)
 	var lines []string
 
@@ -45,23 +49,36 @@ func main() {
 			panic(err)
 		}
 
+		old = startNumber
+
 		if direction[0] == 'L' {
+
+			matches = (value + (100 - old)) / 100
+			countOfZeros += matches
 
 			startNumber = (startNumber - value + 100) % 100
 
-			if startNumber == 0 {
+			if matches == 0 && startNumber == 0 {
 				countOfZeros++
 			}
 
 		} else if direction[0] == 'R' {
 
+			matches = (old + value) / 100
+			countOfZeros += matches
+
 			startNumber = (startNumber + value) % 100
 
-			if startNumber == 0 {
+			if matches == 0 && startNumber == 0 {
 				countOfZeros++
 			}
 
 		}
+
+		fmt.Printf(
+			"Step %d: %s%d | old=%d, value=%d, matches=%d, new=%d, count=%d\n",
+			i+1, string(direction[0]), value, old, value, matches, startNumber, countOfZeros,
+		)
 
 	}
 
