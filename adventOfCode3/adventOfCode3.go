@@ -47,45 +47,30 @@ func main() {
 
 		secondBiggestIndex := -1
 
-		freq := make(map[int]int)
-		for _, d := range array[i] {
-			freq[d]++
-		}
+		for j := 0; j < len(array[i])-1; j++ {
 
-		for j := 0; j < len(array[i]); j++ {
+			current := array[i][j]
 
-			if freq[array[i][j]] != 1 {
-				continue
-			}
-
-			if biggestNum < array[i][j] {
-
-				secondBiggestNumb = biggestNum
-				secondBiggestIndex = biggestIndex
-
-				biggestNum = array[i][j]
+			if current > biggestNum {
+				biggestNum = current
 				biggestIndex = j
-
-				fmt.Println("first:", biggestNum)
-				fmt.Println("first second:", secondBiggestNumb)
-
-			} else if secondBiggestNumb < array[i][j] {
-
-				secondBiggestNumb = array[i][j]
-				secondBiggestIndex = j
-
-				fmt.Println("second:", secondBiggestNumb)
-
 			}
 		}
 
-		if biggestNum == -1 || secondBiggestNumb == -1 {
-			continue
+		for k := biggestIndex + 1; k < len(array[i]); k++ {
+
+			current := array[i][k]
+
+			if secondBiggestNumb < current {
+
+				secondBiggestNumb = current
+				secondBiggestIndex = k
+			}
+
 		}
 
 		if biggestIndex < secondBiggestIndex {
 			combinedStr = fmt.Sprintf("%d%d", biggestNum, secondBiggestNumb)
-			fmt.Println("string", combinedStr)
 		} else {
 			combinedStr = fmt.Sprintf("%d%d", secondBiggestNumb, biggestNum)
 		}
@@ -94,8 +79,6 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-
-		fmt.Println("int:", combinedNum)
 
 		sum += combinedNum
 
